@@ -8,7 +8,7 @@ use EonX\EasyPagination\Interfaces\StartSizeConfigInterface;
 use EonX\EasyPagination\Interfaces\StartSizeDataInterface;
 use EonX\EasyPagination\Interfaces\StartSizeDataResolverInterface;
 use EonX\EasyPagination\Traits\DataResolverTrait;
-use Symfony\Component\HttpFoundation\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 final class StartSizeInQueryResolver implements StartSizeDataResolverInterface
 {
@@ -24,9 +24,14 @@ final class StartSizeInQueryResolver implements StartSizeDataResolverInterface
         $this->config = $config;
     }
 
-    public function resolve(Request $request): StartSizeDataInterface
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request|\Psr\Http\Message\ServerRequestInterface $request
+     */
+    public function resolve($request): StartSizeDataInterface
     {
-        $queryParams = $request->query->all();
+        $queryParams = $request instanceof ServerRequestInterface
+            ? $request->getQueryParams()
+            : $request->query->all();
 
         return $this->createStartSizeData($this->config, $queryParams, $request);
     }
