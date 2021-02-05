@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace EonX\EasyPagination\Tests;
 
 use EonX\EasyPagination\Resolvers\Config\StartSizeConfig;
+use EonX\EasyPsr7Factory\EasyPsr7Factory;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -32,13 +34,13 @@ abstract class AbstractTestCase extends TestCase
     /**
      * @param null|mixed[] $query
      */
-    protected function createServerRequest(?array $query = null): Request
+    protected function createServerRequest(?array $query = null): ServerRequestInterface
     {
         $server = [
             'HTTP_HOST' => 'eonx.com',
         ];
 
-        return new Request($query ?? [], [], [], [], [], $server);
+        return (new EasyPsr7Factory())->createRequest(new Request($query ?? [], [], [], [], [], $server));
     }
 
     protected function tearDown(): void
