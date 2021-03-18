@@ -1,0 +1,32 @@
+{
+    "name": "eonx-com/easy-pagination",
+    "description": "Provides a generic way to handle pagination data from clients",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "eonx-com/easy-psr7-factory": "^3.1",
+        "phpunit/phpunit": "^8.4 || ^9.5",
+        "laravel/lumen-framework": "^5.5",
+        "vlucas/phpdotenv": "^3.3",
+        "symfony/symfony": "^4.4 || ^5.1.5",
+        "mockery/mockery": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "EonX\\EasyPagination\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EonX\\EasyPagination\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.1-dev"
+        }
+    }
+}
